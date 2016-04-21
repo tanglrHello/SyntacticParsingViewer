@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>成分句法分析可视化-GeoTagger-njunlp</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css" />	
+
+</head>
+<body>
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/myjs/TagParseTree.js"></script>
+	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	
+	
+
+	
+	<div class="container">
+        <br>
+        
+          <label>句法分析结果（每个句子一行）：</label>
+          <textarea name="conpparse_input_ori_name" id="conpparse_ori" type="text" style="overflow:scroll; overflow-y:hidden;" wrap="off" class="form-control" rows="10" onblur="PrintTree()"></textarea> 
+
+        <br>
+	    
+		<button type="button" id="showNodeIndexBtn" onclick="showNodeIndexFunc();" class="btn btn-success">隐藏节点序号</button>
+        <button type="button" id="prev" onclick="show(0);" class="btn btn-success">上一句</button>
+        <button type="button" id="next" onclick="show(1);" class="btn btn-success">下一句</button><br><br>
+        
+        第<span id="sentence_index">0</span>句:
+	</div>
+    
+     <div id="bpres_tree_container" style="width:100%;height:500px"></div>
+
+	<script>	
+		PrintTree();
+		function PrintTree(){
+			var is_ch = /chrome/.test(navigator.userAgent.toLowerCase()); 
+			var bpresSet=document.getElementById("conpparse_ori").value;
+            var sentence_index=parseInt(document.getElementById("sentence_index").innerText);
+
+			if(bpresSet==""){
+				return;
+			}
+            
+            sentences=bpresSet.split("\n");
+            
+            bpres=sentences[sentence_index]
+            
+			iscorrect=validateTree(bpres);
+			if(iscorrect){
+				createJsTree(bpres);
+				showEchartsTree(document.getElementById("bpres_tree_container"),getCompleteEchartsTree(true));
+			}
+			else{
+				alert("句法分析结果有误！")
+			}
+		}
+
+    function show(type){
+        var sentence_index=parseInt(document.getElementById("sentence_index").innerText);
+        var bpresSet=document.getElementById("conpparse_ori").value;
+        if(bpresSet==""){
+			return;
+		}
+        sentences=bpresSet.split("\n");
+        
+         if (type==0){  //prev
+            if (sentence_index==0){
+                return;
+            }
+            document.getElementById("sentence_index").innerText=sentence_index-1;
+            PrintTree();
+         }
+         else{   //next
+            if(sentence_index==sentences.length-1){
+                return;            
+            }
+            document.getElementById("sentence_index").innerText=sentence_index+1;
+            PrintTree();
+         }
+        
+    }
+    
+	</script>
+	
+
+</body>
+</html>
