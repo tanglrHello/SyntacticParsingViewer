@@ -21,7 +21,7 @@ There are two .html files in this project.
 ( (IP (NP (DP (DT 该)) (NP (NN 山地))) (VP (VV 位于) (NP (NN 天山山脉)))) )<br>
  
 <h6>中文说明（懒得看上面可以看这里，简述一下）：</h6>
-TagParse.html可以通过多种才做改变你已有的句法树结构，并自动生成新的树结构对应的句法结构字符串。<br>
+TagParse.html可以通过多种操作改变你已有的句法树结构，并自动生成新的树结构对应的句法结构字符串。<br>
 ViewParse.html可以查看句法结构字符串的可视化树结构，可以一次输入多行，每行对应一个句法树，初始显示第一句。<br>
 输入的句法树结构应该和BerkelParser的输出形式完全一致。<br>
   
