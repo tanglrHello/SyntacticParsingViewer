@@ -1,7 +1,7 @@
 ﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-	<title>成分句法分析可视化-GeoTagger-njunlp</title>
+	<title>Syntactic Parsing Tagger-GeoTagger-njunlp</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css" />	
@@ -10,7 +10,7 @@
 <body>
 	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/myjs/TagParseTree.js"></script>
+	<script type="text/javascript" src="js/myjs/TagParseTree_english.js"></script>
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 	
 	
@@ -21,13 +21,13 @@
         
                 <div class="input-group">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">原句法树：</button>
+                    <button class="btn btn-default" type="button">Original Syntactic Tree:</button>
                   </span>
                   <textarea name="conpparse_input_ori_name" id="conpparse_ori" type="text" class="form-control" rows="3" onblur="PrintTree()"></textarea>
                 </div><!-- /input-group -->		
                 <div class="input-group">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">当前结构：</button>
+                    <button class="btn btn-default" type="button">Current Tree Structure:</button>
                   </span>
                   <textarea name="conpparse_input_new_name" id="conpparse_now" type="text" class="form-control" rows="3" readOnly="true"></textarea>
                 </div><!-- /input-group -->
@@ -36,39 +36,39 @@
 		<form method="POST" onsubmit="return checkOnSubmit();">
 			
 			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">节点序号：</span>
+			  <span class="input-group-addon" id="basic-addon1">node ID:</span>
 			  <input type="text" id="nodeIndexID" onblur="getNodeContent();" autocomplete="off" class="form-control" aria-describedby="basic-addon1">
 			</div>
 			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">节点内容：</span>
+			  <span class="input-group-addon" id="basic-addon1">node content:</span>
 			  <input type="text" id="nodeContentID" autocomplete="off" class="form-control" aria-describedby="basic-addon1">
 			</div>
 
-         	<button type="button" id="deleteNodeBtn" onclick="deleteNodeFunc();" class="btn btn-danger" onClick="deleteNode()">删除单个节点</button>
-         	<button type="button" id="deleteNodeBtn" onclick="deleteSubtreeFunc();" class="btn btn-danger">删除子树</button>
+         	<button type="button" id="deleteNodeBtn" onclick="deleteNodeFunc();" class="btn btn-danger" onClick="deleteNode()">delete single node</button>
+         	<button type="button" id="deleteNodeBtn" onclick="deleteSubtreeFunc();" class="btn btn-danger">delete subtree</button>
        
-         	<button type="button" id="editNodeBtn" onclick="editNodeFunc();" class="btn btn-warning">修改内容</button>
+         	<button type="button" id="editNodeBtn" onclick="editNodeFunc();" class="btn btn-warning">edit node content</button>
 
-         	<button type="button" id="addLeftBtn" onclick="addSibling('left')" class="btn btn-info">添加左兄弟</button>
+         	<button type="button" id="addLeftBtn" onclick="addSibling('left')" class="btn btn-info">add left sibling</button>
 
-         	<button type="button" id="addRightBtn" onclick="addSibling('right')" class="btn btn-info">添加右兄弟</button>
+         	<button type="button" id="addRightBtn" onclick="addSibling('right')" class="btn btn-info">add right sibling</button>
 
-         	<button type="button" id="addChildBtn" onclick="addRightChild();" class="btn btn-info">添加子节点</button>
+         	<button type="button" id="addChildBtn" onclick="addRightChild();" class="btn btn-info">add child node</button>
 
-         	<button type="button" id="resetTreeBtn" onclick="resetTreeFunc()" class="btn btn-primary">恢复原标注</button>			     		   
+         	<button type="button" id="resetTreeBtn" onclick="resetTreeFunc()" class="btn btn-primary">reset</button>			     		   
 
 			<br><br>
 
 			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">父子节点：</span>
-			  <input type="text" id="parent_child_ID" class="form-control" placeholder="（输入“3 5”表示将节点3作为节点5的父节点）" aria-describedby="basic-addon1">
+			  <span class="input-group-addon" id="basic-addon1">parent-child node pair:</span>
+			  <input type="text" id="parent_child_ID" class="form-control" placeholder="('3 5' means making node 3 to be the parent node of node 5)" aria-describedby="basic-addon1">
 			  <span class="input-group-btn">
-		        <button class="btn btn-warning" onclick="linkNodes();" type="button">确认修改</button>
+		        <button class="btn btn-warning" onclick="linkNodes();" type="button">OK</button>
 		      </span>
 			</div>
 			
 			<br>
-			<button type="button" id="showNodeIndexBtn" onclick="showNodeIndexFunc();" class="btn btn-success">隐藏节点序号</button>
+			<button type="button" id="showNodeIndexBtn" onclick="showNodeIndexFunc();" class="btn btn-success">hide NodeID</button>
         </form>
 	</div>
     
@@ -91,28 +91,9 @@
 				showEchartsTree(document.getElementById("bpres_tree_container"),getCompleteEchartsTree(true));
 			}
 			else{
-				alert("句法分析结果有误！")
+				alert("syntactic tree string is not valid!");
 			}
 		}		
-
-		function checkUserName(){
-     		username_input=document.getElementById("username_id");
-     		if(username_input.value.trim()==""){
-     			alert("请输入你的名字");
-     			username_input.style.background="#FFAAAA";
-     			return false;
-     		}
-     		username_input.style.background="#FFFFFF";
-			return true;	     		
-     	}
-		
-		function checkOnSubmit(){
-			res=checkConpresNodeValidFunc();
-			//res=res&&checkConpresConsistencyFunc()&&checkUserName();
-			return res;
-		}
-
-
 
 	</script>
 	

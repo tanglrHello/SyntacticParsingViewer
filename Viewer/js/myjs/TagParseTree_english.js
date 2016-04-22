@@ -163,15 +163,15 @@ function getEchartsTree(tree,containIndex){
 
 function showNodeIndexFunc(){
 	btn=document.getElementById("showNodeIndexBtn");
-	if(btn.innerText=="显示节点序号"){
+	if(btn.innerText=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(true);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
-		btn.innerText="隐藏节点序号";
+		btn.innerText="hide NodeID";
 	}
 	else{
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
-		btn.innerText="显示节点序号";
+		btn.innerText="show NodeID";
 	}
 }
 
@@ -183,7 +183,7 @@ function deleteNodeFunc(){
 	res=checkNodeID(nodeID,rootnode);
 	if(!res){
 		document.getElementById("nodeIndexID").style.background="#FFAAAA";
-		alert(nodeID+"是无效的节点ID或根节点ID");
+		alert(nodeID+" is an invalid node ID or the ID of root node是无效的节点ID或根节点ID");
 		return;
 	}
 	else{
@@ -250,7 +250,7 @@ function deleteSubtreeFunc(){
 	res=checkNodeID(nodeID,rootnode);
 	if(!res){
 		document.getElementById("nodeIndexID").style.background="#FFAAAA";
-		alert(nodeID+" 是无效的节点ID或根节点ID");
+		alert(nodeID+" is an invalid node ID or the ID of root node");
 		return;
 	}
 	else{
@@ -281,7 +281,7 @@ function deleteSubtreeFunc(){
 
 	//刷新页面显示
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -305,7 +305,7 @@ function editNodeFunc(){
 	res=checkNodeID(nodeID,rootnode);
 	if(!res){
 		document.getElementById("nodeIndexID").style.background="#FFAAAA";
-		alert(nodeID+" 是无效的节点ID或根节点ID");
+		alert(nodeID+" is an invalid node ID or the ID of root node");
 		return;
 	}
 	else{
@@ -336,7 +336,7 @@ function editNodeFunc(){
 
 	//刷新页面显示
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -361,7 +361,7 @@ function addSibling(position){
 	res=checkNodeID(nodeID,rootnode);
 	if(!res){
 		document.getElementById("nodeIndexID").style.background="#FFAAAA";
-		alert(nodeID+" 是无效的节点ID或根节点ID");
+		alert(nodeID+" is an invalid node ID or the ID of root node");
 		return;
 	}
 	else{
@@ -403,7 +403,7 @@ function addSibling(position){
 	
 	//刷新页面显示
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -428,9 +428,9 @@ function addRightChild(){
 		res=checkNodeID(nodeID,rootnode);
 		if(!res){
 			document.getElementById("nodeIndexID").style.background="#FFAAAA";
-			alert(nodeID+" 是无效的节点ID");
+			alert(nodeID+" is an invalid nodeID");
 			return;
-		}						
+		}
 	}
 	document.getElementById("nodeIndexID").style.background="#FFFFFF";
 
@@ -440,10 +440,10 @@ function addRightChild(){
 	
 	while(queue.length!=0){
 		var currentNode=queue.shift();
-		if(currentNode.nodevalue.split("_")[1]==nodeID){										
-			var newnode=new TreeNode("null_"+treenodes.length);					
-			currentNode.children.push(newnode);		
-			treenodes.push(newnode);					
+		if(currentNode.nodevalue.split("_")[1]==nodeID){
+			var newnode=new TreeNode("null_"+treenodes.length);
+			currentNode.children.push(newnode);
+			treenodes.push(newnode);
 
 			findFlag=true;
 			break;
@@ -457,7 +457,7 @@ function addRightChild(){
 
 	//刷新页面显示
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -479,7 +479,7 @@ function resetTreeFunc(){
 	createJsTree(oriTreeText);
 
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -501,7 +501,7 @@ function linkNodes(){
 
 	//格式检查
 	if(nodeIDs.split(" ").length!=2){
-		alert("应该有且仅有两个节点ID用单个空格隔开,不要有多余空格");
+		alert("There should be exactly two node IDs split by a SINGLE space");
 		document.getElementById("parent_child_ID").style.background="#FFAAAA";
 		return false;
 	}
@@ -512,9 +512,9 @@ function linkNodes(){
 			res=checkNodeID(parentID,rootnode);
 			if(!res){
 				document.getElementById("parent_child_ID").style.background="#FFAAAA";
-				alert(parentID+" 是无效的节点ID");
+				alert(parentID+" is an invalid nodeID");
 				return;
-			}						
+			}
 		}
 
 		//子节点
@@ -522,7 +522,7 @@ function linkNodes(){
 		res=checkNodeID(childID,rootnode);
 		if(!res){
 			document.getElementById("parent_child_ID").style.background="#FFAAAA";
-			alert(childID+" 是无效的节点ID或根节点ID");
+			alert(childID+" is an invalid node ID or the ID of root node");
 			return;
 		}		
 	}
@@ -542,14 +542,14 @@ function linkNodes(){
 
 	res=checkNodeID(parentID,childNode);
 	if(res){   //"子节点"的子孙节点中包括"父节点"
-		alert("节点"+childID+"是节点"+parentID+"的父节点，修改后不能保持树结构");
+		alert("node"+childID+" is the ancestor of node"+parentID+"，this change cannot keep the tree structure");
 		document.getElementById("parent_child_ID").style.background="#FFAAAA";
 		return false;
 	}
 
 	//结构检查，两个节点不能是同一个节点
 	if(childID==parentID){
-		alert("两个节点不能是同一个");
+		alert("two nodes should not be the same node");
 		document.getElementById("parent_child_ID").style.background="#FFAAAA";
 		return false;
 	}
@@ -575,8 +575,7 @@ function linkNodes(){
 		while(tmp.children.length!=0){
 			if(tmp.children[0]==childNode){
 				findFlag=true;
-				console.log("+++++++");
-				console.log(tmp);
+
 				//从“子节点”的当前父节点的子节点数组中将其删除
 				tmp.children.splice(0,1);
 				//向“父节点”的子节点数组中，第i个子节点的左边添加“子节点”
@@ -709,7 +708,7 @@ function linkNodes(){
 	}
 
 	if(!findFlag){
-		alert("这样移动后不能维持句中词语的顺序");
+		alert("This movement will not keep the sequence of words in the sentence");
 		document.getElementById("parent_child_ID").style.background="#FFAAAA";
 		return false;
 	}
@@ -718,7 +717,7 @@ function linkNodes(){
 	
 	//刷新页面显示
 	showIndex=document.getElementById("showNodeIndexBtn").innerText;
-	if(showIndex=="显示节点序号"){
+	if(showIndex=="show NodeID"){
 		var tree_data=getCompleteEchartsTree(false);
 		showEchartsTree(document.getElementById("bpres_tree_container"),tree_data);
 	}
@@ -830,7 +829,7 @@ function getNodeContent(){
 		res=checkNodeID(nodeID,rootnode);
 		if(!res){
 			document.getElementById("nodeIndexID").style.background="#FFAAAA";
-			alert(nodeID+" 是无效的节点ID");
+			alert(nodeID+" is an invalid nodeID");
 			return;
 		}
 	}
@@ -936,7 +935,7 @@ function checkConpresNodeValidFunc(){
 	    			}
 	    		}
 	    		if(posRightFlag==false){
-	    			alert("节点["+thisnode.nodevalue+"]不是有效的词性，有效的词性有"+validPOS);
+	    			alert("node["+thisnode.nodevalue+"] is not a valid part-of-speech, valid part-of-speech includes: "+validPOS);
 	    			return false;
 	    		}
 	    	}
@@ -951,7 +950,7 @@ function checkConpresNodeValidFunc(){
 	    			}
 	    		}
 	    		if(tagRightFlag==false){
-	    			alert("节点["+thisnode.nodevalue+"]不是有效的短语标记，有效的短语标记有"+validPhraseTag);
+	    			alert("node["+thisnode.nodevalue+"] is not a valid tag for phrase, valid phrase tags are: "+validPhraseTag);
 	    			return false;
 	    		}
 	    	}
@@ -990,7 +989,7 @@ function checkConpresConsistencyFunc(){
 		for(var i=thisnode.children.length-1;i>=0;i--){
 			//词性节点（子节点中有叶子节点，并且仅有一个子节点）
 			if(thisnode.children[i].children.length==0 && thisnode.children.length!=1){
-				alert(thisnode.nodevalue+"如果是词性节点，应该仅有一个子节点");
+				alert("If node"+thisnode.nodevalue+" is a part-of-speech node, it should have only one child node");
 				return false;
 			}
 			else if(thisnode.children[i].children.length==0 && thisnode.children.length==1){
@@ -1016,7 +1015,7 @@ function checkConpresConsistencyFunc(){
 		var pos=segpos_tag[i].split("_")[1];
 
 		if(seg!=segres[i]){			
-			alert("句法树中分词与之前的标注不一致");
+			alert("Word segment is not consistent with that in original tree");
 			return false;
 		}
 		if(pos!=posres[i]){
@@ -1024,7 +1023,7 @@ function checkConpresConsistencyFunc(){
 			if(pos=="time"||pos=="loc"){
 				continue;
 			}
-			alert("句法树中的词性与之前的标注不一致");
+			alert("Part-of-speech tag are not consistent with that in original tree");
 			return false;
 		}
 
@@ -1077,7 +1076,7 @@ function showEchartsTree(tree_container,tree_data){
 	    //设置数据
 	    var option={
 			title : {
-	        text: '句法树'
+	        text: ''
 		    },
 		    toolbox: {
 		        show : true,
