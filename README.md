@@ -1,7 +1,10 @@
 # SyntacticParsingViewer
 A Tool to view or edit syntactic parsing results
 
-There are two .html files in this project.
+There are four .html files in this project.<br>
+(TagParse.html and ViewParse.html are chinese language version)<br>
+(TagParse_english.html and ViewParse_english.html are english language version)<br>
+(Different language versions only mean the languages on tha page are different, not the language of the syntactic tree)<br>
 
 <h6>TagParse.html:</h6>
   -You can open this file in your browser (Chrome recommended)<br>
